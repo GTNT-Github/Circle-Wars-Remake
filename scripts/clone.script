@@ -1,0 +1,25 @@
+go.property("id", 0)
+
+local function delete()
+	go.delete()
+end
+
+local sprite = {"friend", "enemy"}
+
+function init(self)
+	print(go.get("#clone_script", "id"))
+	msg.post(".", "acquire_input_focus")
+	msg.post("#clone", "play_animation", {id = hash(sprite[self.id])})
+	go.set("#clone","tint.w", 0.5)
+	timer.delay(2, false, delete)
+end
+
+function on_input(self, action_id, action)
+	if action.x and action.y then
+		local original_pos = go.get_position()
+		local new_pos = vmath.vector3(action.x,action.y,0.7)
+		local distance = vmath.length(original_pos - new_pos)
+		local duration = distance/200
+		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, new_pos, go.EASING_LINEAR, duration, 0, ai_move)
+	end
+end

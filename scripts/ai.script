@@ -1,0 +1,16 @@
+local function ai_move(self) 
+	self.wx, self.wy = window.get_size()
+	local x = math.random(0,self.wx)
+	local y = math.random(0,self.wy)
+	local original_pos = go.get_position()
+	local new_pos = vmath.vector3(x,y,0.8)
+	local distance = vmath.length(original_pos - new_pos)
+	local duration = distance/200
+	go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, new_pos, go.EASING_LINEAR, duration, 0, ai_move)
+end
+
+function init(self)
+	ai_move(self)
+	math.randomseed(socket.gettime())
+end
+
