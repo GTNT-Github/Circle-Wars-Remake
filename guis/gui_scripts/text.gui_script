@@ -1,0 +1,22 @@
+function init(self)
+	time = socket.gettime()
+	starttime = socket.gettime()
+	points = 0
+end
+
+function update(self, dt)
+	gui.set_text(gui.get_node("points"), "Points: " .. points)
+	time = socket.gettime()-starttime
+	gui.set_text(gui.get_node("time"), "Time: " .. math.floor(socket.gettime()-starttime))
+	if points >= win_points_value then
+		msg.post("menu:/background#game", "disable")
+		msg.post("menu:/background#game", "final")
+		msg.post("menu:/background#game", "unload")
+		msg.post("menu:/victory_defeat_menu#victorydefeat", "gamedone", {result = "Victory", time = math.floor(socket.gettime()-starttime)})
+	elseif points <= loose_points_value then
+		msg.post("menu:/background#game", "disable")
+		msg.post("menu:/background#game", "final")
+		msg.post("menu:/background#game", "unload")
+		msg.post("menu:/victory_defeat_menu#victorydefeat", "gamedone", {result = "Defeat", time = math.floor(socket.gettime()-starttime)})
+	end
+end

@@ -1,16 +1,18 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	points = 0
 end
 
 
 function on_input(self, action_id, action)
+	print("E")
 	if action.x and action.y then
-		mouse_pos = vmath.vector3(action.x, action.y, 0.7)
-		go.set_position(vmath.vector3(action.x, action.y, 0.9))
+		if player_speed_value == "Instant" then
+			mouse_pos = vmath.vector3(action.x, action.y, 0.7)
+			go.set_position(vmath.vector3(action.x, action.y, 0.9))
+		else 
+			local duration = (vmath.length(go.get_position()-vmath.vector3(action.x,action.y,0.9)))/player_speed_value
+			go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(action.x,action.y,0.9), go.EASING_LINEAR, duration, 0)
+		end
 	end
 end
 
-function update(self, dt)
-	print(points)
-end

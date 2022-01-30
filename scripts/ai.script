@@ -1,6 +1,7 @@
 local function ai_move(self) 
-	self.wx, self.wy = window.get_size()
-	new_pos = vmath.vector3(math.random(0,self.wx),math.random(0,self.wy),0.7)
+	local gameWidth = tonumber(sys.get_config("display.width"))
+	local gameHeight = tonumber(sys.get_config("display.height"))
+	new_pos = vmath.vector3(math.random(0,gameWidth),math.random(0,gameHeight),0.7)
 	local duration = (vmath.length(go.get_position()-new_pos))/200
 
 	go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, new_pos, go.EASING_LINEAR, duration, 0, ai_move)

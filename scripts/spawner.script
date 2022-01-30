@@ -1,12 +1,12 @@
 function init(self)
-	timer.delay(1, true, friend_spawn)
-	timer.delay(1, true, enemy_spawn)
+	timer.delay(friend_spawn_value, true, friend_spawn_function)
+	timer.delay(enemy_spawn_value, true, enemy_spawn_function)
 end
 
-function enemy_spawn(self)
+function enemy_spawn_function(self)
 	factory.create("#spawner", go.get_position("/enemy"), nil, {id = 2})
 end
 
-function friend_spawn(self)
+function friend_spawn_function(self)
 	factory.create("#spawner", go.get_position("/friend"), nil, {id = 1})
 end

@@ -5,9 +5,9 @@ local function delete()
 end
 
 local sprite = {"friend", "enemy"}
-
+local value = {friend_speed_value, enemy_speed_value}
 function init(self)
-	local duration = (vmath.length(go.get_position()-go.get_position("/player")))/200
+	local duration = (vmath.length(go.get_position()-go.get_position("/player")))/value[self.id]
 	go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, go.get_position("/player"), go.EASING_LINEAR, duration, 0, ai_move)
 	msg.post(".", "acquire_input_focus")
 	msg.post("#clone", "play_animation", {id = hash(sprite[self.id])})
@@ -17,8 +17,8 @@ end
 
 function on_input(self, action_id, action)
 	if action.x and action.y then
-		local duration = (vmath.length(go.get_position()-vmath.vector3(action.x,action.y,0.8)))/200
-		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(action.x,action.y,0.8), go.EASING_LINEAR, duration, 0, ai_move)
+		local duration = (vmath.length(go.get_position()-go.get_position("/player")))/value[self.id]
+		go.animate(".", "position", go.PLAYBACK_ONCE_FORWARD, go.get_position("/player"), go.EASING_LINEAR, duration, 0)
 	end
 end
 
@@ -27,8 +27,12 @@ function on_message(self, message_id, message, sender)
 		if message.other_id == hash("/player") then
 			if self.id == 1 then
 				points = points+1
+				sound.play("#friend_sound")
+				particlefx.play("#friend_particle")
 			elseif self.id == 2 then
 				points = points-1
+				sound.play("#enemy_sound")
+				particlefx.play("#enemy_particle")
 			end
 			go.delete()
 		end

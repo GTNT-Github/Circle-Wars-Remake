@@ -1,5 +1,6 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /main/menu.collectionc
+render = /defold-rive/lua/rive.renderc
 
 [script]
 shared_state = 1
@@ -7,12 +8,18 @@ shared_state = 1
 [display]
 width = 1280
 height = 720
+high_dpi = 1
+fullscreen = 0
+vsync = 0
+dynamic_orientation = 1
 
 [android]
 input_method = HiddenInputField
 
 [project]
 title = Circle Wars
+dependencies#0 = https://github.com/Insality/druid/archive/master.zip
+dependencies#1 = https://github.com/subsoap/defos/archive/master.zip
 
 [graphics]
 default_texture_min_filter = nearest

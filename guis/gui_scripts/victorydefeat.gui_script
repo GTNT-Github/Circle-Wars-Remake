@@ -1,0 +1,16 @@
+function init(self)
+	msg.post("#", "disable")
+end
+function on_message(self, message_id, message, sender)
+	if message_id == hash("gamedone") then
+		msg.post("#", "enable")
+		gui.set_text(gui.get_node("victory_defeat_text"), message.result)
+		gui.set_text(gui.get_node("time"), "Time: " .. message.time .. " seconds")
+		timer.delay(5, false, end_result)
+	end
+end
+
+function end_result()
+	msg.post("menu:/play_button#play_menu", "enable")
+	msg.post("#", "disable")
+end
