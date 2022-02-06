@@ -1,6 +1,6 @@
 [bootstrap]
 main_collection = /main/menu.collectionc
-render = /defold-rive/lua/rive.renderc
+render = /builtins/render/default.renderc
 
 [script]
 shared_state = 1
