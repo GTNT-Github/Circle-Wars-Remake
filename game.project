@@ -18,10 +18,25 @@ input_method = HiddenInputField
 
 [project]
 title = Circle Wars
+publisher = GTNT
+developer = GTNT
+compress_archive = 0
 dependencies#0 = https://github.com/Insality/druid/archive/master.zip
 dependencies#1 = https://github.com/subsoap/defos/archive/master.zip
 
 [graphics]
 default_texture_min_filter = nearest
 default_texture_mag_filter = nearest
+
+[html5]
+show_made_with_defold = 0
+show_console_banner = 0
+scale_mode = downscale_fit
+splash_image = /assets/images/friend.png
+
+[windows]
+app_icon = /assets/windows.ico
+
+[osx]
+app_icon = /assets/mac.icns
 
