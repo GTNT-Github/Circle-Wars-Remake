@@ -1,0 +1,83 @@
+local mode
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "disable")
+end
+
+
+function on_input(self, action_id, action)
+	if gui.is_enabled(gui.get_node("background")) then
+		if action_id == hash("touch") and action.pressed then
+			if gui.pick_node(gui.get_node("button"), action.x, action.y) then
+				gui.animate(gui.get_node("button"),"scale",vmath.vector3(2.2,2.2,1),gui.EASING_LINEAR,0.2,0,nil,gui.PLAYBACK_ONCE_PINGPONG)
+				if mode == "Easy" then
+					mode = "Medium"
+					gui.set_text(gui.get_node("button_text"), "Medium")
+					friend_spawn_value = 1.3
+					enemy_spawn_value = 1.9
+					friend_speed_value = 200
+					enemy_speed_value = 200
+					player_speed_value = "Instant"
+					win_points_value = 20
+					loose_points_value = -20
+				elseif mode == "Medium" then
+					mode = "Hard"
+					gui.set_text(gui.get_node("button_text"), "Hard")
+					friend_spawn_value = 1.9
+					enemy_spawn_value = 1.3
+					friend_speed_value = 200
+					enemy_speed_value = 200
+					player_speed_value = 350
+					win_points_value = 20
+					loose_points_value = -20
+				elseif mode == "Hard" then
+					mode = "Expert"
+					gui.set_text(gui.get_node("button_text"), "Expert")
+					friend_spawn_value = 2.3
+					enemy_spawn_value = 1
+					friend_speed_value = 200
+					enemy_speed_value = 200
+					player_speed_value = 350
+					win_points_value = 20
+					loose_points_value = -20
+				elseif mode == "Expert" then
+					mode = "Custom"
+					gui.set_text(gui.get_node("button_text"), "Custom")
+				elseif mode == "Custom" then
+					mode = "Easy"
+					gui.set_text(gui.get_node("button_text"), "Easy")
+					friend_spawn_value = 1
+					enemy_spawn_value = 2.3
+					friend_speed_value = 350
+					enemy_speed_value = 200
+					player_speed_value = "Instant"
+					win_points_value = 20
+					loose_points_value = -20
+				end
+			elseif gui.pick_node(gui.get_node("play"), action.x, action.y) then
+				if mode == "Custom" then
+					msg.post("/custom_settings#custom_settings", "enable")
+					msg.post("#", "disable")
+				else
+					msg.post("/background#backend", "begin_game")
+					msg.post("#", "disable")
+					print(friend_spawn)
+				end
+			end
+		end
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("enable") then
+		mode = "Easy"
+		gui.set_text(gui.get_node("button_text"), "Easy")
+		friend_spawn_value = 1
+		enemy_spawn_value = 2.3
+		friend_speed_value = 350
+		enemy_speed_value = 200
+		player_speed_value = "Instant"
+		win_points_value = 20
+		loose_points_value = -20
+	end
+end

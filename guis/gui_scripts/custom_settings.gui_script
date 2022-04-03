@@ -1,11 +1,5 @@
 local druid = require("druid.druid")
-friend_spawn = nil
-enemy_spawn = nil
-friend_speed = nil
-enemy_speed = nil
-player_speed = nil
-win_points = nil
-loose_points = nil
+
 
 function init(self)
 	msg.post("#", "disable")
@@ -80,43 +74,30 @@ function on_input(self, action_id, action)
 	if action.pressed then
 		if gui.is_enabled(gui.get_node("background")) then
 			if action_id == hash("touch") and action.pressed then -- <2>
-				local easy_button = gui.get_node("easy_preset") -- <3>
-				local medium_button = gui.get_node("medium_preset") -- <3>
-				local hard_button = gui.get_node("hard_preset") -- <3>
-				local hardcore_button = gui.get_node("hardcore_preset") -- <3>
+				local save_preset = gui.get_node("save_preset") -- <3>
+				local load_preset = gui.get_node("load_preset") -- <3>
 
-				if gui.pick_node(easy_button, action.x, action.y) then -- <5>
-					friend_spawn:set(0)
-					enemy_spawn:set(0.33333333333)
-					friend_speed:set(0.5)
-					enemy_speed:set(0)
-					player_speed:set(1)
-					win_points:set(0.48717948717)
-					loose_points:set(0.48717948717)
-				elseif gui.pick_node(medium_button, action.x, action.y) then
-					friend_spawn:set(0.11111111111)
-					enemy_spawn:set(0.22222222222)
-					friend_speed:set(0)
-					enemy_speed:set(0)
-					player_speed:set(1)
-					win_points:set(0.48717948717)
-					loose_points:set(0.48717948717)
-				elseif gui.pick_node(hard_button, action.x, action.y) then
-					friend_spawn:set(0.22222222222)
-					enemy_spawn:set(0.11111111111)
-					friend_speed:set(0)
-					enemy_speed:set(0)
-					player_speed:set(0.49833887043)
-					win_points:set(0.48717948717)
-					loose_points:set(0.48717948717)
-				elseif gui.pick_node(hardcore_button, action.x, action.y) then
-					friend_spawn:set(0.33333333333)
-					enemy_spawn:set(0)
-					friend_speed:set(0)
-					enemy_speed:set(0.5)
-					player_speed:set(0.49833887043)
-					win_points:set(0.48717948717)
-					loose_points:set(0)
+				if gui.pick_node(save_preset, action.x, action.y) then -- <5>
+					local preset_file = sys.get_save_file("circle_wars","presets")
+					local preset_save = sys.save(preset_file,{
+						["friend_spawn"] = friend_spawn["value"],
+						["enemy_spawn"] = enemy_spawn["value"],
+						["friend_speed"] = friend_speed["value"],
+						["enemy_speed"] = enemy_speed["value"],
+						["player_speed"] = player_speed["value"],
+						["win_points"] = win_points["value"],
+						["loose_points"] = loose_points["value"],
+					})
+				elseif gui.pick_node(load_preset, action.x, action.y) then
+					local preset_file = sys.get_save_file("circle_wars","presets")
+					local preset = sys.load(preset_file)
+					friend_spawn:set(preset["friend_spawn"])
+					enemy_spawn:set(preset["enemy_spawn"])
+					friend_speed:set(preset["friend_speed"])
+					enemy_speed:set(preset["enemy_speed"])
+					player_speed:set(preset["player_speed"])
+					win_points:set(preset["win_points"])
+					loose_points:set(preset["loose_points"])
 				elseif gui.pick_node(gui.get_node("begin_game"), action.x, action.y) then
 					msg.post("/background#backend", "begin_game")
 					msg.post("#", "disable")

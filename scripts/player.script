@@ -4,7 +4,6 @@ end
 
 
 function on_input(self, action_id, action)
-	print("E")
 	if action.x and action.y then
 		if player_speed_value == "Instant" then
 			mouse_pos = vmath.vector3(action.x, action.y, 0.7)

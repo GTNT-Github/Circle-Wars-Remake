@@ -109,10 +109,10 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "settings"
+  id: "mode_select"
   data: "components {\n"
-  "  id: \"gamemode\"\n"
-  "  component: \"/guis/guis/gamemode.gui\"\n"
+  "  id: \"mode_select\"\n"
+  "  component: \"/guis/guis/mode_select.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -148,6 +148,41 @@ embedded_instances {
   data: "components {\n"
   "  id: \"victorydefeat\"\n"
   "  component: \"/guis/guis/victorydefeat.gui\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "custom_settings"
+  data: "components {\n"
+  "  id: \"custom_settings\"\n"
+  "  component: \"/guis/guis/custom_settings.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
