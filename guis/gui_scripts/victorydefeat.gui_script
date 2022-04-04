@@ -6,6 +6,12 @@ function on_message(self, message_id, message, sender)
 		msg.post("#", "enable")
 		gui.set_text(gui.get_node("victory_defeat_text"), message.result)
 		gui.set_text(gui.get_node("time"), "Time: " .. message.time .. " seconds")
+		if message.result == "Victory" and mode ~= "Custom" then
+			local high_scores = sys.get_save_file("circle_wars","high_scores")
+			local scores = sys.load(high_scores)
+			scores[mode] = message.time
+			local high_save = sys.save(high_scores,scores)
+		end
 		timer.delay(5, false, end_result)
 	end
 end

@@ -9,6 +9,9 @@ function on_input(self, action_id, action)
 			if gui.pick_node(gui.get_node("button"), action.x, action.y) then -- <5>
 				msg.post("/mode_select#mode_select", "enable")
 				msg.post("#", "disable")
+			elseif gui.pick_node(gui.get_node("high_score"), action.x, action.y) then -- <5>
+				msg.post("/high_score#high_score", "enable")
+				msg.post("#", "disable")
 			end
 		end
 	end
