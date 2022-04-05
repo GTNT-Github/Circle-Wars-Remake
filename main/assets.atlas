@@ -50,6 +50,10 @@ images {
   image: "/assets/particles/friend_particle.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/assets/images/player_blank.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 10
 extrude_borders: 0
 inner_padding: 0

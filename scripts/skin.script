@@ -1,0 +1,18 @@
+go.property("skin_check", false)
+function update(self, dt)
+    if self.skin_check then
+        go.set("#player_skin", "tint", vmath.vector4(red_value,green_value,blue_value,1))
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("enable") then
+        self.skin_check = true
+    elseif message_id == hash("disable") then
+        self.skin_check = false
+    end
+end
+
+function init(self)
+    msg.post("/player_skin","disable")
+end

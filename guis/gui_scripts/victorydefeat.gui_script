@@ -4,6 +4,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("gamedone") then
 		msg.post("#", "enable")
+		msg.post("/background#menu_background", "enable")
 		gui.set_text(gui.get_node("victory_defeat_text"), message.result)
 		gui.set_text(gui.get_node("time"), "Time: " .. message.time .. " seconds")
 		if message.result == "Victory" and mode ~= "Custom" then

@@ -1,5 +1,7 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
+	go.set("#player", "tint", vmath.vector4(red_value,green_value,blue_value,1))
+	print(red_value,green_value,blue_value)
 end
 
 
