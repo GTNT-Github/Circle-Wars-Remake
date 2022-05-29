@@ -23,6 +23,9 @@ function on_input(self, action_id, action)
 					mode = "Custom"
 					gui.set_text(gui.get_node("button_text"), "Custom")
 				elseif mode == "Custom" then
+					mode = "Multiplayer"
+					gui.set_text(gui.get_node("button_text"), "Multiplayer")
+				elseif mode == "Multiplayer" then
 					mode = "Easy"
 					gui.set_text(gui.get_node("button_text"), "Easy")
 				end
@@ -63,10 +66,12 @@ function on_input(self, action_id, action)
 				if mode == "Custom" then
 					msg.post("/custom_settings#custom_settings", "enable")
 					msg.post("#", "disable")
+				elseif mode == "Multiplayer" then
+					msg.post("/multiplayer_start#multiplayer_start", "enable")
+					msg.post("#", "disable")
 				else
 					msg.post("/background#backend", "begin_game")
 					msg.post("#", "disable")
-					print(friend_spawn)
 				end
 			end
 		end

@@ -1,0 +1,56 @@
+local ColyseusClient = require "colyseus.client"
+
+local client
+local room
+local druid = require("druid.druid")
+
+function init(self)
+	msg.post("#","disable")
+	msg.post(".", "acquire_input_focus")
+	self.druid = druid.new(self)
+
+	input = self.druid:new_input("input", "input_text")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("enable") then
+		gui.set_enabled(gui.get_node("input"), false)
+		gui.set_enabled(gui.get_node("begin_game"), false)
+		client = ColyseusClient.new("ws://localhost:2567")
+
+		-- join chat room
+		client:create("lobby", {}, function(err, _room)
+		  if err then
+			print("JOIN ERROR: " .. err)
+			return
+		  end
+	
+		  room = _room
+		  print(room.id)
+		end)
+	end
+	self.druid:on_message(message_id, message, sender)
+
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		if gui.pick_node(gui.get_node("join"), action.x, action.y) and gui.is_enabled(gui.get_node("join")) then -- <5>
+			gui.set_enabled(gui.get_node("input"), true)
+			gui.set_enabled(gui.get_node("begin_game"), true)
+			gui.set_enabled(gui.get_node("join"), false)
+			gui.set_enabled(gui.get_node("create"), false)
+		end
+	end
+	return self.druid:on_input(action_id, action)
+
+end
+
+function final(self)
+	self.druid:final()
+end
+
+
+function update(self, dt)
+	self.druid:update(dt)
+end
