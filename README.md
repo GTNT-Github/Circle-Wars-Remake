@@ -1,1 +1,5 @@
-Just download it bru
+- Circle Wars is a game where you have to try to get 20 points
+- You gain points by touching green clones
+- However, You can also loose points by touching red clones
+- Clones are the transparent circles that the "Friend" (Green) and "Enemy" (Red) create
+- You can use the pre-build settings in game or you can customize your own
