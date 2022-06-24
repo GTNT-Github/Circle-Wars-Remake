@@ -23,8 +23,8 @@ function on_input(self, action_id, action)
 					mode = "Custom"
 					gui.set_text(gui.get_node("button_text"), "Custom")
 				elseif mode == "Custom" then
-					mode = "Multiplayer"
-					gui.set_text(gui.get_node("button_text"), "Multiplayer")
+					mode = "Easy"
+					gui.set_text(gui.get_node("button_text"), "Easy")
 				elseif mode == "Multiplayer" then
 					mode = "Easy"
 					gui.set_text(gui.get_node("button_text"), "Easy")
